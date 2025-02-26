@@ -16,7 +16,13 @@ echo -e "${GREEN}=== Analyse des ports, processus et services ===${NC}"
 echo ""
 
 # Fichier temporaire
-TEMP_FILE=$(mktemp)
+TEMP_FILE=/tmp/map_ports.$
+touch $TEMP_FILE
+if [ $? -ne 0 ]; then
+   echo -e "${RED}Impossible de créer un fichier temporaire${NC}"
+   exit 1
+fi
+chmod 600 $TEMP_FILE
 
 # Fonction pour obtenir le chemin d'installation
 get_process_path() {
